@@ -147,19 +147,17 @@ function memoize(func) {
  * }, 2);
  * retryer() => 2
  */
-function retry( func, attempts ) {
-  return function(...args){
-    for(let currAttempt = 1; currAttempt <= attempts; currAttempt += 1){
+function retry(func, attempts) {
+  return function (...args) {
+    for (let currAttempt = 1; currAttempt <= attempts; currAttempt += 1) {
       try {
-        return func(...args)
-
+        return func(...args);
       } catch (error) {
-
+        console.log(`One more retry`);
       }
-
     }
-
-  }
+    throw new Error(`Function failed after ${attempts} attempts`);
+  };
 }
 
 /**
