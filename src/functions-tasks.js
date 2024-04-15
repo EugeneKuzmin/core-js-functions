@@ -92,35 +92,17 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(...coefficients) {
-  if (coefficients.length === 0) {
-    return null; // Return null if no coefficients are provided
+function getPolynom(...args) {
+  if (args.length === 0) {
+    return null;
   }
-
-  // Return the polynomial function
   return function (x) {
     let result = 0;
-    for (let i = 0; i < coefficients.length; i += 1) {
-      result += coefficients[i] * x ** (coefficients.length - i - 1);
+    for (let i = 0; i < args.length; i += 1) {
+      result += args[i] * x ** (args.length - i - 1);
     }
     return result;
   };
-  // console.log(`args`, ...args);
-  // console.log(`args.length`, args.length);
-  // if (!args.length) return null;
-  // if (args.length === 1) return args[0];
-  // console.log('got to func');
-
-  // return function (x) {
-  //   let result = 0;
-  //   for (let i = 0; i < args.length; i += 1) {
-  //     console.log(`args[i]`, args[i]);
-  //     console.log(`x ** i`, x ** i);
-  //     result += args[i] * x ** i;
-  //   }
-  //   console.log(`result`, result);
-  //   return result;
-  // };
 }
 
 /**
@@ -207,9 +189,9 @@ function logger(func, logFunc) {
     logFunc(
       `${func.name}(${args.map((arg) => JSON.stringify(arg)).join(',')}) starts`
     );
-    const result = logFunc(func(...args));
+    const result = func.apply(this, args);
     logFunc(
-      `${func.name}(${args.map((arg) => JSON.stringify(arg)).join(', ')}) ends`
+      `${func.name}(${args.map((arg) => JSON.stringify(arg)).join(',')}) ends`
     );
     return result;
   };
