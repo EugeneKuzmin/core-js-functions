@@ -92,16 +92,35 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(...args) {
-  if (!args.length) return null;
+function getPolynom(...coefficients) {
+  if (coefficients.length === 0) {
+    return null; // Return null if no coefficients are provided
+  }
 
+  // Return the polynomial function
   return function (x) {
     let result = 0;
-    for (let i = 1; i < args.length; i += 1) {
-      result += args[i] * x ** i;
+    for (let i = 0; i < coefficients.length; i += 1) {
+      result += coefficients[i] * x ** (coefficients.length - i - 1);
     }
     return result;
   };
+  // console.log(`args`, ...args);
+  // console.log(`args.length`, args.length);
+  // if (!args.length) return null;
+  // if (args.length === 1) return args[0];
+  // console.log('got to func');
+
+  // return function (x) {
+  //   let result = 0;
+  //   for (let i = 0; i < args.length; i += 1) {
+  //     console.log(`args[i]`, args[i]);
+  //     console.log(`x ** i`, x ** i);
+  //     result += args[i] * x ** i;
+  //   }
+  //   console.log(`result`, result);
+  //   return result;
+  // };
 }
 
 /**
